@@ -8,7 +8,7 @@ class enemy:
         self.vita = vita
 
         self.lista_str_immagine = lista_str
-        self.immagine_load = 0
+        self.immagine_load = len(lista_str) - vita - 1
 
         self.coins = coins
         self.form = form

@@ -26,12 +26,14 @@ class towers:
 
     def attack(self, baloons_position):
             for t in self.list_tower:
-                if t.atk_ongoing == False:
+                atk_time = pygame.time.get_ticks()
+                if t.atk_ongoing == False and atk_time - t.atk_start > 2500:
                     t.reset_atk()
                     for b_pos in baloons_position:
                         if self.euc_distance((t.img.x, t.img.y), (b_pos[0], b_pos[1])) < 100:
                             self.atk_ongoing = True
                             t.attack()
+                            t.atk_start = pygame.time.get_ticks()
 
     def reset(self):
         self.list_tower = []
@@ -50,6 +52,7 @@ class tower_AoE:
         self.img = sprite_render.sprite_rend(img_path, (40, 40), pos, screen, True)
         
         self.atk_ongoing = False
+        self.atk_start = 0
 
     def add_atk_sprite(self):
         t = (self.pos[0] + 20, self.pos[1] + 20)
