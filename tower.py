@@ -72,10 +72,7 @@ class tower_AoE:
         self.img.stampa()
 
         if self.atk_ongoing == True:
-            self.atk_ongoing = self.print_atk()
-            self.atk_ongoing = not self.atk_ongoing
-
-        return self.atk_ongoing
+            self.print_atk()
 
     def print_atk(self):
         done = True
@@ -83,6 +80,12 @@ class tower_AoE:
         for l in self.img_laser:
             done = l.muoviti()
             l.stampa()
+            if done == True:
+                self.img_laser.remove(l)
+
+        if len(self.img_laser) == 0:
+            self.atk_ongoing = False
+            
         return done
     
     def reset_atk(self):

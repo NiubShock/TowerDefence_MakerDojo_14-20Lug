@@ -3,6 +3,7 @@ from pygame.locals import *
 
 import enemy
 import tower
+import random
 
 class gioco:
     def __init__(self, punti_iniziali, soldi_iniz, vite, mappa, lista_punti, screen):
@@ -126,9 +127,20 @@ class gioco:
             # Generare un nemico
             if self.num_en < num_en:
                 # Creo il nemico
-                    self.list_en.append(enemy.enemy(vita_en, img_en, vita_en * 10, self.screen))
-                    self.list_en[len(self.list_en) - 1].punti_movimento(self.lista_punti)
-                    self.num_en = self.num_en + 1
+                random_lvl = random.gauss(self.livello, 1)
+                random_lvl = int(random_lvl)
+                if random_lvl >= vita_en:
+                    random_lvl = vita_en
+                if random_lvl <= 1:
+                    random_lvl = 1
+
+                vita_en = random_lvl
+
+                print(vita_en)
+
+                self.list_en.append(enemy.enemy(vita_en, img_en, vita_en * 10, self.screen))
+                self.list_en[len(self.list_en) - 1].punti_movimento(self.lista_punti)
+                self.num_en = self.num_en + 1
             # Resettare il timer
             self.time_spawn = act_time
 
